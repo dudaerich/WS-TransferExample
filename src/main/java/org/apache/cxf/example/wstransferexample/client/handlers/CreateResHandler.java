@@ -7,16 +7,13 @@
 package org.apache.cxf.example.wstransferexample.client.handlers;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.xml.ws.soap.SOAPFaultException;
 import org.apache.cxf.example.wstransferexample.client.ClientResourceManager;
 import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
 import org.apache.cxf.example.wstransferexample.client.XMLManager;
 import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
 import org.apache.cxf.example.wstransferexample.server.resourcefactory.Server;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.transfer.Create;
 import org.apache.cxf.ws.transfer.CreateResponse;
@@ -56,6 +53,8 @@ public class CreateResHandler implements KeywordHandler {
             throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {
             throw new HandlerException("XML is not found.");
+        } catch (SOAPFaultException ex) {
+            throw new HandlerException(ex.getLocalizedMessage());
         }
     }
 

@@ -8,6 +8,7 @@ package org.apache.cxf.example.wstransferexample.client.handlers;
 
 import java.util.List;
 import java.util.logging.Logger;
+import javax.xml.ws.soap.SOAPFaultException;
 import org.apache.cxf.example.wstransferexample.client.ClientResourceManager;
 import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
 import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
@@ -77,6 +78,8 @@ public class GetResHandler implements KeywordHandler {
             throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {
             throw new HandlerException("Resource is not found.");
+        } catch (SOAPFaultException ex) {
+            throw new HandlerException(ex.getLocalizedMessage());
         }
     }
 
