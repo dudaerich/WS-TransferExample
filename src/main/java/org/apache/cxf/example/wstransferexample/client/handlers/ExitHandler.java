@@ -8,6 +8,7 @@ package org.apache.cxf.example.wstransferexample.client.handlers;
 
 import java.util.List;
 import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
+import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 
 /**
  * Exit program.
@@ -15,7 +16,10 @@ import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
  */
 public class ExitHandler implements KeywordHandler {
 
-    public void handle(List<String> parameters) {
+    public void handle(List<String> parameters) throws HandlerException {
+        if (!parameters.isEmpty()) {
+            throw new HandlerException("Wrong number of arguments.");
+        }
         System.exit(0);
     }
 

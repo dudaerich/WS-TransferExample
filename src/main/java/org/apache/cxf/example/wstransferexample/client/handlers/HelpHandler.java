@@ -9,6 +9,7 @@ package org.apache.cxf.example.wstransferexample.client.handlers;
 import java.util.List;
 import org.apache.cxf.example.wstransferexample.client.Controller;
 import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
+import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 
 /**
  * Print help.
@@ -22,7 +23,10 @@ public class HelpHandler implements KeywordHandler {
         this.controller = controller;
     }
     
-    public void handle(List<String> parameters) {
+    public void handle(List<String> parameters) throws HandlerException {
+        if (!parameters.isEmpty()) {
+            throw new HandlerException("Wrong number of arguments.");
+        }
         controller.printHelp();
     }
 
