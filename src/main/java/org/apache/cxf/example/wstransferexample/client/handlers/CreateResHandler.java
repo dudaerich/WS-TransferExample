@@ -52,6 +52,8 @@ public class CreateResHandler implements KeywordHandler {
             createRequest.setRepresentation(representation);
             CreateResponse createResponse = client.create(createRequest);
             ClientResourceManager.getInstance().saveResource(createResponse.getResourceCreated());
+        } catch (NumberFormatException ex) {
+            throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {
             throw new HandlerException("XML is not found.");
         }
