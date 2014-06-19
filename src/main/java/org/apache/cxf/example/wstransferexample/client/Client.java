@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
 import org.apache.cxf.example.wstransferexample.client.handlers.CreateResHandler;
+import org.apache.cxf.example.wstransferexample.client.handlers.DeleteResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.ExitHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.GetResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.HelpHandler;
@@ -29,6 +30,9 @@ public class Client
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                 String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
                 controller.processLine(line);
             } catch (IOException ex) {
                 LOGGER.severe(ex.getLocalizedMessage());
@@ -45,5 +49,6 @@ public class Client
         controller.registerKeyword("createRes", new CreateResHandler());
         controller.registerKeyword("lsRes", new LsResHandler());
         controller.registerKeyword("getRes", new GetResHandler());
+        controller.registerKeyword("deleteRes", new DeleteResHandler());
     }
 }
