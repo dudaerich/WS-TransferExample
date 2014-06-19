@@ -7,6 +7,7 @@
 package org.apache.cxf.example.wstransferexample.client;
 
 import java.util.List;
+import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 
 /**
  * Interface for handling keyword.
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface KeywordHandler {
     
-    public void handle(List<String> parameters);
+    public void handle(List<String> parameters) throws HandlerException;
     
     public String getHelp();
     

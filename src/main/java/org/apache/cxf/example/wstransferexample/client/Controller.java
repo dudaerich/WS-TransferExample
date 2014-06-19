@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 
 /**
  * Class accepts requests and then calls appropriate methods.
@@ -50,7 +52,12 @@ public class Controller {
         if (!commands.isEmpty()) {
             String command = commands.get(0);
             if (keywords.containsKey(command)) {
-                keywords.get(command).handle(commands.subList(1, commands.size()));
+                try {
+                    keywords.get(command).handle(commands.subList(1, commands.size()));
+                } catch (HandlerException ex) {
+                    System.out.println(ex.getLocalizedMessage());
+                    System.out.println("Try using help command.");
+                }
             } else {
                 System.out.println(String.format("Keyword \"%s\" is not defined.", command));
                 printHelp();
