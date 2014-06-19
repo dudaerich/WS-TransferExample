@@ -9,6 +9,7 @@ import org.apache.cxf.example.wstransferexample.client.handlers.DeleteResHandler
 import org.apache.cxf.example.wstransferexample.client.handlers.ExitHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.GetResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.HelpHandler;
+import org.apache.cxf.example.wstransferexample.client.handlers.LoadDirHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LoadXMLHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LsResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LsXMLHandler;
@@ -45,6 +46,7 @@ public class Client
         controller.registerKeyword("exit", new ExitHandler());
         controller.registerKeyword("help", new HelpHandler(controller));
         controller.registerKeyword("loadXML", new LoadXMLHandler());
+        controller.registerKeyword("loadDir", new LoadDirHandler());
         controller.registerKeyword("lsXML", new LsXMLHandler());
         controller.registerKeyword("showXML", new ShowXMLHandler());
         controller.registerKeyword("createRes", new CreateResHandler());
