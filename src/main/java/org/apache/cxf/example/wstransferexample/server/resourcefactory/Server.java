@@ -6,6 +6,7 @@
 
 package org.apache.cxf.example.wstransferexample.server.resourcefactory;
 
+import javax.xml.transform.stream.StreamSource;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
@@ -16,6 +17,8 @@ import org.apache.cxf.ws.transfer.resource.ResourceLocal;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactory;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactoryImpl;
 import org.apache.cxf.ws.transfer.resourcefactory.resolver.SimpleResourceResolver;
+import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
+import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
 /**
  * Server main class.
@@ -53,6 +56,9 @@ public class Server {
     private static void createResourceFactory(ResourceManager resourceManager) {
         ResourceFactoryImpl resourceFactory = new ResourceFactoryImpl();
         resourceFactory.setResourceResolver(new SimpleResourceResolver(RESOURCE_STUDENTS_URL, resourceManager));
+        resourceFactory.getValidators().add(
+                new XSDResourceValidator(new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
+                        new XSLTResourceTransformer(new StreamSource(Server.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);
