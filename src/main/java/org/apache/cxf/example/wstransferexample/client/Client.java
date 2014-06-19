@@ -12,13 +12,14 @@ import org.apache.cxf.example.wstransferexample.client.handlers.HelpHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LoadXMLHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LsResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LsXMLHandler;
+import org.apache.cxf.example.wstransferexample.client.handlers.PutResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.ShowXMLHandler;
 
 /**
  * Main Class.
  *
  */
-public class Client 
+public class Client
 {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getCanonicalName());
     
@@ -50,5 +51,6 @@ public class Client
         controller.registerKeyword("lsRes", new LsResHandler());
         controller.registerKeyword("getRes", new GetResHandler());
         controller.registerKeyword("deleteRes", new DeleteResHandler());
+        controller.registerKeyword("putRes", new PutResHandler());
     }
 }
