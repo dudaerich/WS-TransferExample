@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.logging.Logger;
 import org.apache.cxf.example.wstransferexample.client.handlers.CreateResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.ExitHandler;
+import org.apache.cxf.example.wstransferexample.client.handlers.GetResHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.HelpHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LoadXMLHandler;
 import org.apache.cxf.example.wstransferexample.client.handlers.LsResHandler;
@@ -43,5 +44,6 @@ public class Client
         controller.registerKeyword("showXML", new ShowXMLHandler());
         controller.registerKeyword("createRes", new CreateResHandler());
         controller.registerKeyword("lsRes", new LsResHandler());
+        controller.registerKeyword("getRes", new GetResHandler());
     }
 }
