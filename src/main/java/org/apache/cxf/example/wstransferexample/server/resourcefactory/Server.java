@@ -23,9 +23,9 @@ import org.apache.cxf.ws.transfer.resourcefactory.resolver.SimpleResourceResolve
  */
 public class Server {
     
-    private static final String RESOURCE_STUDENTS_URL = "http://localhost:8080/ResourceStudents";
+    public static final String RESOURCE_STUDENTS_URL = "http://localhost:8080/ResourceStudents";
     
-    private static final String RESOURCE_FACTORY_URL = "http://localhost:8080/ResourceFactory";
+    public static final String RESOURCE_FACTORY_URL = "http://localhost:8080/ResourceFactory";
     
     public static void main(String[] args) {
         ResourceManager resourceManager = new MemoryResourceManager();
