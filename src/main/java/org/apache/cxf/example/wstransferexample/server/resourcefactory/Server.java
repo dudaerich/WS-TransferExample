@@ -6,6 +6,8 @@
 
 package org.apache.cxf.example.wstransferexample.server.resourcefactory;
 
+import org.apache.cxf.interceptor.LoggingInInterceptor;
+import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 import org.apache.cxf.ws.transfer.manager.MemoryResourceManager;
 import org.apache.cxf.ws.transfer.manager.ResourceManager;
@@ -38,6 +40,13 @@ public class Server {
         factory.setServiceClass(Resource.class);
         factory.setServiceBean(resourceLocal);
         factory.setAddress(RESOURCE_STUDENTS_URL);
+        // Logging Interceptors
+        LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
+        loggingInInterceptor.setPrettyLogging(true);
+        LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
+        loggingOutInterceptor.setPrettyLogging(true);
+        factory.getInInterceptors().add(loggingInInterceptor);
+        factory.getOutInterceptors().add(loggingOutInterceptor);
         factory.create();
     }
     
@@ -48,6 +57,13 @@ public class Server {
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);
         factory.setAddress(RESOURCE_FACTORY_URL);
+        // Logging Interceptors
+        LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
+        loggingInInterceptor.setPrettyLogging(true);
+        LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
+        loggingOutInterceptor.setPrettyLogging(true);
+        factory.getInInterceptors().add(loggingInInterceptor);
+        factory.getOutInterceptors().add(loggingOutInterceptor);
         factory.create();
     }
     
