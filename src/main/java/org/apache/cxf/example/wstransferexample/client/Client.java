@@ -11,9 +11,9 @@ import org.apache.cxf.example.wstransferexample.client.handlers.HelpHandler;
  * Main Class.
  *
  */
-public class App 
+public class Client 
 {
-    private static final Logger LOGGER = Logger.getLogger(App.class.getCanonicalName());
+    private static final Logger LOGGER = Logger.getLogger(Client.class.getCanonicalName());
     
     public static void main(String[] args){
         Controller controller = new Controller();
