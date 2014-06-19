@@ -8,19 +8,16 @@ package org.apache.cxf.example.wstransferexample.client.handlers;
 
 import java.util.List;
 import java.util.logging.Logger;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
 import org.apache.cxf.example.wstransferexample.client.XMLManager;
 import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
 
 /**
  *
@@ -30,15 +27,27 @@ public class ShowXMLHandler implements KeywordHandler {
 
     private static final Logger LOGGER = Logger.getLogger(ShowXMLHandler.class.getCanonicalName());
     
-    private Transformer transformer;
+    private LSSerializer serializer;
+    
+    private LSOutput output;
     
     public ShowXMLHandler() {
         try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            transformer = tf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        } catch (TransformerConfigurationException ex) {
-            LOGGER.severe("Error occured during creating of Transformer instance.");
+            DOMImplementationRegistry reg = DOMImplementationRegistry.newInstance();
+            DOMImplementationLS impl = (DOMImplementationLS) reg.getDOMImplementation("ls");
+            serializer = impl.createLSSerializer();
+            serializer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE);
+            serializer.getDomConfig().setParameter("xml-declaration", Boolean.FALSE);
+            output = impl.createLSOutput();
+            output.setByteStream(System.out);
+        } catch (ClassNotFoundException ex) {
+            LOGGER.severe(ex.getLocalizedMessage());
+        } catch (InstantiationException ex) {
+            LOGGER.severe(ex.getLocalizedMessage());
+        } catch (IllegalAccessException ex) {
+            LOGGER.severe(ex.getLocalizedMessage());
+        } catch (ClassCastException ex) {
+            LOGGER.severe(ex.getLocalizedMessage());
         }
     }
     
@@ -49,14 +58,11 @@ public class ShowXMLHandler implements KeywordHandler {
         try {
             int i = Integer.valueOf(parameters.get(0));
             Document doc = XMLManager.getInstance().getDocument(i-1).getDocument();
-            transformer.transform(new DOMSource((Node) doc), new StreamResult(System.out));
-            System.out.println();
+            serializer.write((Node) doc, output);
         } catch (NumberFormatException ex) {
             throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {
             throw new HandlerException("XML is not found.");
-        } catch (TransformerException ex) {
-            throw new HandlerException("Error occured during transformation the XML.");
         }
     }
 
