@@ -39,6 +39,9 @@ public class Server {
     private static void createResource(ResourceManager resourceManager) {
         ResourceLocal resourceLocal = new ResourceLocal();
         resourceLocal.setManager(resourceManager);
+        resourceLocal.getValidators().add(
+                new XSDResourceValidator(new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentPut.xsd")),
+                        new StudentPutResourceTransformer()));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(Resource.class);
         factory.setServiceBean(resourceLocal);
