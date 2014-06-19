@@ -51,6 +51,8 @@ public class ShowXMLHandler implements KeywordHandler {
             Document doc = XMLManager.getInstance().getDocument(i-1).getDocument();
             transformer.transform(new DOMSource((Node) doc), new StreamResult(System.out));
             System.out.println();
+        } catch (NumberFormatException ex) {
+            throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {
             throw new HandlerException("XML is not found.");
         } catch (TransformerException ex) {
@@ -59,7 +61,7 @@ public class ShowXMLHandler implements KeywordHandler {
     }
 
     public String getHelp() {
-        return "[numberOfXML] Print loaded XML. See loadXML, lsXML.";
+        return "[numberOfXML] - Print loaded XML. See loadXML, lsXML.";
     }
     
 }
