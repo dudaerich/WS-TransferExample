@@ -13,7 +13,7 @@ import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
 import org.apache.cxf.example.wstransferexample.client.XMLManager;
 import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
-import org.apache.cxf.example.wstransferexample.server.resourcefactory.Server;
+import org.apache.cxf.example.wstransferexample.server.resourcefactory.ResourceFactoryServer;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.transfer.Create;
 import org.apache.cxf.ws.transfer.CreateResponse;
@@ -32,7 +32,7 @@ public class CreateResHandler implements KeywordHandler {
     public CreateResHandler() {
         JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
-        factory.setAddress(Server.RESOURCE_FACTORY_URL);
+        factory.setAddress(ResourceFactoryServer.RESOURCE_FACTORY_URL);
         client = (ResourceFactory) factory.create();
     }
     

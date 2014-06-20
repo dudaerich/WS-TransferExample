@@ -21,10 +21,10 @@ import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
 import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
 /**
- * Server main class.
+ * ResourceFactoryServer main class.
  * @author Erich Duda
  */
-public class Server {
+public class ResourceFactoryServer {
     
     public static final String RESOURCE_STUDENTS_URL = "http://localhost:8080/ResourceStudents";
     
@@ -40,7 +40,7 @@ public class Server {
         ResourceLocal resourceLocal = new ResourceLocal();
         resourceLocal.setManager(resourceManager);
         resourceLocal.getValidators().add(
-                new XSDResourceValidator(new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentPut.xsd")),
+                new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentPut.xsd")),
                         new StudentPutResourceTransformer()));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(Resource.class);
@@ -60,8 +60,8 @@ public class Server {
         ResourceFactoryImpl resourceFactory = new ResourceFactoryImpl();
         resourceFactory.setResourceResolver(new SimpleResourceResolver(RESOURCE_STUDENTS_URL, resourceManager));
         resourceFactory.getValidators().add(
-                new XSDResourceValidator(new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
-                        new XSLTResourceTransformer(new StreamSource(Server.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
+                new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
+                        new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);
