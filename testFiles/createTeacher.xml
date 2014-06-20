@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<teacher xmlns="http://university.edu/student">
+<teacher xmlns="http://university.edu/teacher">
     <name>Bob</name>
     <surname>Stuart</surname>
     <birthdate>

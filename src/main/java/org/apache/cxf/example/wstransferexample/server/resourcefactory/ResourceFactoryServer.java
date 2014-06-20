@@ -63,6 +63,8 @@ public class ResourceFactoryServer {
         resourceFactory.getValidators().add(
                 new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
                         new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
+        resourceFactory.getValidators().add(new XSDResourceValidator(
+                new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/teacherCreateBasic.xsd"))));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);
