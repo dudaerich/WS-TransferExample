@@ -22,7 +22,7 @@ import org.apache.cxf.ws.transfer.shared.TransferConstants;
  */
 public class ResourceServer {
     
-    public static final String RESOURCE_TEACHERS_URL = "http://localhost:8080/ResourceTeachers";
+    public static final String RESOURCE_TEACHERS_URL = "http://localhost:8081/ResourceTeachers";
     
     public static void main(String[] args) {
         ResourceManager resourceManager = new MemoryResourceManager();
