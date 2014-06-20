@@ -7,6 +7,7 @@
 package org.apache.cxf.example.wstransferexample.server.resourcefactory;
 
 import javax.xml.transform.stream.StreamSource;
+import org.apache.cxf.example.wstransferexample.server.resource.ResourceServer;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
@@ -16,7 +17,6 @@ import org.apache.cxf.ws.transfer.resource.Resource;
 import org.apache.cxf.ws.transfer.resource.ResourceLocal;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactory;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactoryImpl;
-import org.apache.cxf.ws.transfer.resourcefactory.resolver.SimpleResourceResolver;
 import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
 import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
@@ -58,7 +58,8 @@ public class ResourceFactoryServer {
     
     private static void createResourceFactory(ResourceManager resourceManager) {
         ResourceFactoryImpl resourceFactory = new ResourceFactoryImpl();
-        resourceFactory.setResourceResolver(new SimpleResourceResolver(RESOURCE_STUDENTS_URL, resourceManager));
+        resourceFactory.setResourceResolver(
+                new MyResourceResolver(RESOURCE_STUDENTS_URL, resourceManager, ResourceServer.RESOURCE_TEACHERS_URL));
         resourceFactory.getValidators().add(
                 new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
                         new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
