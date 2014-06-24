@@ -62,9 +62,10 @@ public class ResourceFactoryServer {
                 new MyResourceResolver(RESOURCE_STUDENTS_URL, resourceManager, ResourceServer.RESOURCE_TEACHERS_URL));
         resourceFactory.getValidators().add(
                 new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
-                        new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
-        resourceFactory.getValidators().add(new XSDResourceValidator(
-                new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/teacherCreateBasic.xsd"))));
+                    new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
+        resourceFactory.getValidators().add(
+                new XSDResourceValidator(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/teacherCreateBasic.xsd")),
+                    new XSLTResourceTransformer(new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/teacherCreateBasic.xsl")))));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);
@@ -76,6 +77,7 @@ public class ResourceFactoryServer {
         loggingOutInterceptor.setPrettyLogging(true);
         factory.getInInterceptors().add(loggingInInterceptor);
         factory.getOutInterceptors().add(loggingOutInterceptor);
+        
         factory.create();
     }
     
