@@ -6,6 +6,7 @@
 
 package org.apache.cxf.example.wstransferexample.server.resource;
 
+import javax.xml.transform.stream.StreamSource;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
@@ -15,6 +16,8 @@ import org.apache.cxf.ws.transfer.resource.Resource;
 import org.apache.cxf.ws.transfer.resource.ResourceRemote;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactory;
 import org.apache.cxf.ws.transfer.shared.TransferConstants;
+import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
+import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
 /**
  *
@@ -28,6 +31,9 @@ public class ResourceServer {
         ResourceManager resourceManager = new MemoryResourceManager();
         ResourceRemote resourceRemote = new ResourceRemote();
         resourceRemote.setManager(resourceManager);
+        resourceRemote.getValidators().add(new XSDResourceValidator(
+            new StreamSource(ResourceServer.class.getResourceAsStream("/xml/schema/teacher.xsd")),
+            new TeacherResourceTransformer()));
         
         createResourceFactoryEndpoint(resourceRemote);
         createResourceEndpoint(resourceRemote);
