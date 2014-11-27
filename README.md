@@ -18,15 +18,15 @@ First you should install *WS-Transfer* to your local maven repository. Sources o
 After that you have installed *WS-Transfer* you can run the *WS-TransferExample* program. Recommended way how to run the program is to open 3 terminals, where you run the *Client*, the *ResourceFactoryServer* and the *ResourceServer*.
 
 ```
-mvn -Pclient
+mvn exec:java -pl client
 ```
 
 ```
-mvn -Presourcefactory
+mvn exec:java -pl resourcefactory
 ```
 
 ```
-mvn -Presource
+mvn exec:java -pl resource
 ```
 
 Usage
