@@ -9,21 +9,20 @@ package org.apache.cxf.example.wstransferexample.client.handlers;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.xml.ws.soap.SOAPFaultException;
-import org.apache.cxf.example.wstransferexample.client.ClientResourceManager;
-import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
-import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
-import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.transfer.Get;
-import org.apache.cxf.ws.transfer.GetResponse;
-import org.apache.cxf.ws.transfer.resource.Resource;
-import org.apache.cxf.ws.transfer.shared.handlers.ReferenceParameterAddingHandler;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.apache.cxf.example.wstransferexample.client.ClientResourceManager;
+import org.apache.cxf.example.wstransferexample.client.KeywordHandler;
+import org.apache.cxf.example.wstransferexample.client.ProxyManager;
+import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
+import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.ws.transfer.Get;
+import org.apache.cxf.ws.transfer.GetResponse;
+import org.apache.cxf.ws.transfer.resource.Resource;
 
 /**
  *
@@ -64,13 +63,8 @@ public class GetResHandler implements KeywordHandler {
         try {
             int i = Integer.valueOf(parameters.get(0));
             EndpointReferenceType ref = ClientResourceManager.getInstance().getResource(i - 1);
+            Resource client = ProxyManager.getInstance().getResource(ref);
             
-            JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-            factory.setServiceClass(Resource.class);
-            factory.setAddress(ref.getAddress().getValue());
-            factory.getHandlers().add(new ReferenceParameterAddingHandler(ref.getReferenceParameters()));
-            
-            Resource client = (Resource) factory.create();
             GetResponse getResponse = client.get(new Get());
             
             serializer.write((Node) getResponse.getRepresentation().getAny(), output);

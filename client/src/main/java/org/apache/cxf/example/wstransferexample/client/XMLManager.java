@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
-import org.w3c.dom.Document;
 
 /**
  *

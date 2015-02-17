@@ -13,7 +13,6 @@ import org.apache.cxf.example.wstransferexample.client.XMLManager;
 import org.apache.cxf.example.wstransferexample.client.exception.HandlerException;
 import org.apache.cxf.example.wstransferexample.client.exception.NotFoundException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
@@ -58,7 +57,7 @@ public class ShowXMLHandler implements KeywordHandler {
         try {
             int i = Integer.valueOf(parameters.get(0));
             Document doc = XMLManager.getInstance().getDocument(i-1).getDocument();
-            serializer.write((Node) doc, output);
+            serializer.write(doc, output);
         } catch (NumberFormatException ex) {
             throw new HandlerException("Parameter must be integer.");
         } catch (NotFoundException ex) {

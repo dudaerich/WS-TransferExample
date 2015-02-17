@@ -27,13 +27,15 @@ import org.w3c.dom.Document;
  */
 public class CreateResHandler implements KeywordHandler {
 
-    private final ResourceFactory client;
+    private static ResourceFactory client;
     
     public CreateResHandler() {
-        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-        factory.setServiceClass(ResourceFactory.class);
-        factory.setAddress(Config.getInstance().getServerUrl());
-        client = (ResourceFactory) factory.create();
+        if (client == null) {
+            JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+            factory.setServiceClass(ResourceFactory.class);
+            factory.setAddress(Config.getInstance().getServerUrl());
+            client = (ResourceFactory) factory.create();
+        }
     }
     
     public void handle(List<String> parameters) throws HandlerException {
