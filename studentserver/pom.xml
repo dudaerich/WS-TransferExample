@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.apache.cxf.example</groupId>
-  <artifactId>resource</artifactId>
+  <artifactId>resourcefactory</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Resource</name>
+  <name>ResourceFactory</name>
   <url>https://github.com/dudaerich/WS-TransferExample</url>
   
   <parent>
@@ -34,7 +34,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>org.apache.cxf.example.wstransfexample.server.resource.ResourceServer</mainClass>
+          <mainClass>org.apache.cxf.example.wstransferexample.server.resourcefactory.Server</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -50,7 +50,7 @@
                 <configuration>
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>org.apache.cxf.example.wstransfexample.server.resource.ResourceServer</mainClass>
+                            <mainClass>org.apache.cxf.example.wstransferexample.server.resourcefactory.Server</mainClass>
                         </transformer>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                             <resource>META-INF/cxf/bus-extensions.txt</resource>

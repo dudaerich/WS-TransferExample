@@ -16,8 +16,8 @@
   
   <modules>
       <module>client</module>
-      <module>resourcefactory</module>
-      <module>resource</module>
+      <module>studentserver</module>
+      <module>teacherserver</module>
   </modules>
 
 </project>

@@ -6,7 +6,7 @@ Example program for WS-Transfer SOAP extension implemented in the Apache CXF pro
 Scenario
 --------
 
-There are two separate servers. The first server called *ResourceFactoryServer* provides two services - *ResourceFactory* and *Resource*. The second server called *ResourceServer* contains one service *Resource*. Client program has reference only to the *ResourceFactory*. When the client sends request to create resource, the *ResourceFactory* makes decision where the resource will be stored. It can be stored locally in the first server or remotely in the second server. After creating the resource a reference parameters are returned. By this way the client can later *get*, *put* or *delete* the created resource.
+There are two separate servers. The first server called *Student* provides two services - *ResourceFactory* and *Resource*. The second server called *Teacher* contains one service *Resource*. Client program has reference only to the first server on *ResourceFactory* endpoint. When the client sends request to create resource, the *ResourceFactory* makes decision where the resource will be stored. It can be stored locally in the first server or remotely in the second server. After creating the resource a reference parameters are returned. By this way the client can later *get*, *put* or *delete* the created resource.
 
 The *ResourceFactory* supports two types of XML representations - student and teacher. If other type of XML representation is requested to create, the InvalidRepresentation fault is thrown. All elements in representations are optional. If they are not defined so the "Unspecified" value is set. The *ResourceFactory* generates an *UID* (University Identifier) for each accepted XML representation. The *UID* can't be modified by *put* request. If the method tries to change the *UID* the *PutDenied* fault is thrown.
 
@@ -22,11 +22,11 @@ mvn exec:java -pl client
 ```
 
 ```
-mvn exec:java -pl resourcefactory
+mvn exec:java -pl studentserver
 ```
 
 ```
-mvn exec:java -pl resource
+mvn exec:java -pl teacherserver
 ```
 
 Usage

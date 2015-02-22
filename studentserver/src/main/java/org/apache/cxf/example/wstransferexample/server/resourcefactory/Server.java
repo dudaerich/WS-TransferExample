@@ -23,14 +23,13 @@ import org.apache.cxf.ws.transfer.resource.ResourceLocal;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactory;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactoryImpl;
 import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceTypeIdentifier;
-import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
 import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
 /**
- * ResourceFactoryServer main class.
+ * Server main class.
  * @author Erich Duda
  */
-public class ResourceFactoryServer {
+public class Server {
     
     public static void main(String[] args) {
         Options options = new Options();
@@ -64,9 +63,9 @@ public class ResourceFactoryServer {
         resourceLocal.setManager(resourceManager);
         resourceLocal.getResourceTypeIdentifiers().add(
                 new XSDResourceTypeIdentifier(
-                        new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentPut.xsd")),
+                        new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentPut.xsd")),
                         new XSLTResourceTransformer(
-                                new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentPut.xsl")),
+                                new StreamSource(Server.class.getResourceAsStream("/xml/xslt/studentPut.xsl")),
                                 new StudentPutResourceValidator())));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(Resource.class);
@@ -91,15 +90,15 @@ public class ResourceFactoryServer {
                         Config.getInstance().getResourceTeachersUrl()));
         resourceFactory.getResourceTypeIdentifiers().add(
                 new XSDResourceTypeIdentifier(
-                        new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
+                        new StreamSource(Server.class.getResourceAsStream("/xml/schema/studentCreate.xsd")),
                         new XSLTResourceTransformer(
-                                new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
+                                new StreamSource(Server.class.getResourceAsStream("/xml/xslt/studentCreate.xsl")))));
         resourceFactory.getResourceTypeIdentifiers().add(
                 new XSDResourceTypeIdentifier(
-                        new StreamSource(ResourceFactoryServer.class.getResourceAsStream("/xml/schema/teacherCreateBasic.xsd")),
+                        new StreamSource(Server.class.getResourceAsStream("/xml/schema/teacherCreateBasic.xsd")),
                         new XSLTResourceTransformer(
                                 new StreamSource(
-                                        ResourceFactoryServer.class.getResourceAsStream("/xml/xslt/teacherCreateBasic.xsl")))));
+                                        Server.class.getResourceAsStream("/xml/xslt/teacherCreateBasic.xsl")))));
         JaxWsServerFactoryBean factory = new JaxWsServerFactoryBean();
         factory.setServiceClass(ResourceFactory.class);
         factory.setServiceBean(resourceFactory);

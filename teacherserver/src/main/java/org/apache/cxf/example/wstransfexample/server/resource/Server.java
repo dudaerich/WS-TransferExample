@@ -23,14 +23,13 @@ import org.apache.cxf.ws.transfer.resource.ResourceRemote;
 import org.apache.cxf.ws.transfer.resourcefactory.ResourceFactory;
 import org.apache.cxf.ws.transfer.shared.TransferConstants;
 import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceTypeIdentifier;
-import org.apache.cxf.ws.transfer.validationtransformation.XSDResourceValidator;
 import org.apache.cxf.ws.transfer.validationtransformation.XSLTResourceTransformer;
 
 /**
  *
  * @author erich
  */
-public class ResourceServer {
+public class Server {
     
     public static void main(String[] args) {
         Options options = new Options();
@@ -54,9 +53,9 @@ public class ResourceServer {
         ResourceRemote resourceRemote = new ResourceRemote();
         resourceRemote.setManager(resourceManager);
         resourceRemote.getResourceTypeIdentifiers().add(new XSDResourceTypeIdentifier(
-                new StreamSource(ResourceServer.class.getResourceAsStream("/xml/schema/teacher.xsd")),
+                new StreamSource(Server.class.getResourceAsStream("/xml/schema/teacher.xsd")),
                 new XSLTResourceTransformer(
-                        new StreamSource(ResourceServer.class.getResourceAsStream("/xml/xslt/teacherDefaultValues.xsl")),
+                        new StreamSource(Server.class.getResourceAsStream("/xml/xslt/teacherDefaultValues.xsl")),
                         new TeacherResourceValidator())));
         
         createResourceFactoryEndpoint(resourceRemote);
